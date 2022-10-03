@@ -42,9 +42,9 @@ class StudentController extends AbstractController
     }
 
     #[Route('/detail', name: 'app_detail')]
-    public function detail()
+    public function detail(/*ref $ref*/)
     {
-        return $this->render("student/detail.html.twig");
+    return $this->render("student/detail.html.twig"/*,array("ref"=>$ref)*/);
     }
 
 }

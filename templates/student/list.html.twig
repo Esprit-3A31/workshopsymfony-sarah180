@@ -1,22 +1,25 @@
-<img src="{{ asset('img/profil.jpg') }}" alt="student" height="400px" width="200px">
-<h1 style = "color:red">La classe {{ v1 }} est dans {{ v2 }}</h1>
-<table>
+<img src="{{ asset('img/profil.jpg') }}" alt="student" height="200px" width="200px">
+<h1 style = "color:blue">La classe {{ v1 }} est dans la salle {{ v2 }}</h1>
+<table border="1">
     <tr>
-        <td>Ref</td>
-        <td>Titre</td>
-        <td>Description</td>
-        <td>Nombre_Participants</td>
+        <th>Ref</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Nombre_Participants</th>
     </tr>
     {% if listformation is empty %}
     <h6>This table is empry!!</h6>
     {% else %}
-    <table border="1">
+    
 {% for f in listformation %}
     <tr>
     {% if f.Description == "theorique" %}
-        <td>{{ f.ref }}</td>
+        <td>{{ f.ref }}</td>    
+
         <td>{{ f.Titre }}</td>
+
         <td>{{ f.Description }}</td>
+
         <td>{{ f.nb_participants }}</td>
         <td>
         <a>{% if f.nb_participants == 0 %}
@@ -30,7 +33,7 @@
     {% endfor %}
         {% endif %}
 </table>
-    <h3 style="color: gold">Nombre de formation = {{ listformation |length }}</h3>
+    <h3 style="color: black">Nombre de formation = {{listformation |length }}</h3>
 
 {% set maxvalue = 0 %}
     {% for i in listformation %}
@@ -38,7 +41,7 @@
     {% endfor %}
     {% for j in listformation %}
     {% if j.nb_participants==maxvalue %}
-    le titre de la formation ayant le plus grand nombre de participants est : {{ j.Titre}}
+    <h3 style="color: black">le titre de la formation ayant le plus grand nombre de participants est : {{ j.Titre}}
     {% endif %}
     {% endfor %}
 
