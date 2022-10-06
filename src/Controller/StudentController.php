@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use App\Repository\ClubRepository;
+use App\Repository\StudentRepository;
 
 class StudentController extends AbstractController
 {
@@ -46,5 +48,23 @@ class StudentController extends AbstractController
     {
     return $this->render("student/detail.html.twig"/*,array("ref"=>$ref)*/);
     }
+
+    #[Route('/clubs', name: 'app_club')]
+    public function listClub(ClubRepository $repository)
+    {
+       $clubs=$repository->findAll();
+       return $this->render("student/club.html.twig",array("tabclubs"=>$clubs));
+
+
+    }
+
+    #[Route('/students', name: 'app_student2')]
+    public function liststudent(StudentRepository $repository)
+    {
+       $student=$repository->findAll();
+       return $this->render("student/student.html.twig",array("tabstudent"=>$student));
+
+
+    } 
 
 }
