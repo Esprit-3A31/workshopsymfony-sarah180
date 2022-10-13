@@ -66,5 +66,17 @@ class StudentController extends AbstractController
 
 
     } 
+     /**
+     * @param $id
+     * @param StudentRepository $repository
+     * @Route ("Delete/{id}",name="D")
+     */
+    function Delete($id,StudentRepository  $repository){
+        $em=$this->getDoctrine()->getManager();
+        $classroom=$repository->find($id);
+        $em->remove($student);
+        $em->flush();
+        return $this->redirectToRoute('A');
+    }
 
 }
