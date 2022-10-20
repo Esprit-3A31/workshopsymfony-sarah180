@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Classroom;
+use App\Entity\Student;
+use App\Form\ClassroomType;
+use App\Form\StudentType;
+use App\Repository\ClassroomRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -36,6 +43,21 @@ class StudentController extends AbstractController
         return $this->render("student/list.html.twig",
         array("v1"=>$v1,"v2"=>$v2,"listformation"=>$formations));
     }
+    #[Route('/addStudentForm', name: 'addStudentForm')]
+    public function addCForm(StudentRepository $repository,Request  $request,ManagerRegistry $doctrine)
+    {
+        $student= new  Student();
+        $form= $this->createForm(StudentType::class,$student);
+        $form->handleRequest($request) ;
+        if($form->isSubmitted()){
+            $repository->add($student,true);
+            return  $this->redirectToRoute("addStudentForm");
+        }
+        return $this->renderForm("student/add.html.twig",array("FormStudent"=>$form));
+    }
+
+
+
 
     #[Route('/reservation', name: 'app_reservation')]
     public function reservation()
@@ -66,17 +88,6 @@ class StudentController extends AbstractController
 
 
     } 
-     /**
-     * @param $id
-     * @param StudentRepository $repository
-     * @Route ("Delete/{id}",name="D")
-     */
-    function Delete($id,StudentRepository  $repository){
-        $em=$this->getDoctrine()->getManager();
-        $classroom=$repository->find($id);
-        $em->remove($student);
-        $em->flush();
-        return $this->redirectToRoute('A');
-    }
+
 
 }

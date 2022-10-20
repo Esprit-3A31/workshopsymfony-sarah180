@@ -18,6 +18,10 @@ class Student
     #[ORM\Column(length: 100)]
     private ?string $userName = null;
 
+    #[ORM\ManyToOne(inversedBy: 'student')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?Classroom $classroom = null;
+
     public function getReference(): ?string
     {
         return $this->reference;
@@ -40,6 +44,18 @@ class Student
     public function setUserName(string $userName): self
     {
         $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }

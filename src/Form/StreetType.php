@@ -2,20 +2,19 @@
 
 namespace App\Form;
 
-use App\Entity\Classroom;
+use App\Entity\Street;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-class ClassroomType extends AbstractType
+class StreetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('nbStudent')
 
+            ->add('name')
+            ->add('lenght')
             ->add("submit",SubmitType::class)
         ;
     }
@@ -23,7 +22,7 @@ class ClassroomType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Classroom::class,
+            'data_class' => Street::class,
         ]);
     }
 }
