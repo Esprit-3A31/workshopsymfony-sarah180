@@ -3,3 +3,28 @@ reference : {{ c.reference }}
 user name : {{ c.userName }}
 <br>
 {% endfor %}
+<h3>sort student</h3>
+{% for c in sortByReference %}
+    reference : {{ c.reference }}<br>
+    user name : {{ c.userName }}<br>
+    Classroom: {{ c.Classroom }}<br>
+    <br>
+{% endfor %}
+
+<h3>Top student</h3>
+{% for c in topstudent %}
+
+    user name : {{ c.userName }}<br>
+    moyenne:{{ c.moyenne }}
+    <br>
+{% endfor %}
+
+Classroom: #{{ classroom.id }} {{ classroom.name }}
+<br>
+<h5>List Students</h5>
+{% for s in student %}
+    username:{{ s.username }}
+    moyenne: {{ s.moyenne }}
+    classroom: {{ s.classroom.name }}
+    <br>
+{% endfor %}

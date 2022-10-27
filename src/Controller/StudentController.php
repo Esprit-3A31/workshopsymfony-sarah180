@@ -84,10 +84,25 @@ class StudentController extends AbstractController
     public function liststudent(StudentRepository $repository)
     {
        $student=$repository->findAll();
-       return $this->render("student/student.html.twig",array("tabstudent"=>$student));
+       $reference=$repository->sortByReference();
+       $moyenne=$repository->topStudent();
+       return $this->render("student/student.html.twig",array("tabstudent"=>$student,"sortByReference"=>$student,"topstudent"=>$moyenne));
 
 
-    } 
+    }
+
+
+
+
+    #[Route('/showClassroom/{id}', name: 'showClassroom')]
+    public function showClassroom(StudentRepository $repo,$id,ClassroomRepository $repository)
+    {
+        $classroom= $repository->find($id);
+        $student= $repo->GetStudentbyClassroom($id);
+        return $this->render("student/student.html.twig",
+            array("classroom"=>$classroom,
+                "student"=>$student));
+    }
 
 
 }

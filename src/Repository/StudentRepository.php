@@ -36,37 +36,33 @@ class StudentRepository extends ServiceEntityRepository
 
         if ($flush) {
             $this->getEntityManager()->flush();
-        }
+        }}
 
+        public function sortByReference()
+    {
+            $qb = $this->createQueryBuilder('s')
+            ->orderBy('s.reference','DESC');
+            return $qb->getQuery()
+                ->getResult();
 
-
-
-
-
-    }
-
-//    /**
-//     * @return Student[] Returns an array of Student objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Student
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
+
+public function topStudent(){
+     $entityManager=$this->getEntityManager();
+     $query=$entityManager
+         ->createQuery("SELECT s FROM APP\Entity\Student s WHERE s.moyenne>=15");
+     return $query->getResult();
+
+}
+public function GetStudentbyClassroom($id){
+
+    $qb=$this->createQueryBuilder('s')
+        ->join('s.classroom','s')
+        ->addSelect('c')
+        ->where('c.id=id')
+        ->setParameter('id',$id);
+    return $qb->getQuery()
+        ->getResult();
+
+}
+    }
